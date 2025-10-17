@@ -1,6 +1,7 @@
 STEAMAPPS="/home/ssd2/SteamLibrary/steamapps/common"
 
 GMOD_BASE=$(STEAMAPPS)/GarrysMod/bin/win64
+GMOD_ADDONS=$(STEAMAPPS)/GarrysMod/garrysmod/addons
 GMAD=$(GMOD_BASE)/gmad.exe
 GMPUSBLISH=$(GMOD_BASE)/gmpublish.exe
 PWD=$(shell pwd)
@@ -11,3 +12,7 @@ build:
 
 publish: build
 	protontricks-launch --appid $(APPID) $(GMPUBLISH) create -addon "%~dpn1.gma" -icon "%~dpn1.jpg"
+
+install:
+	rm -rf $(GMOD_ADDONS)/ttt-traitor-mop
+	cp -r ttt-traitor-mop $(GMOD_ADDONS)/

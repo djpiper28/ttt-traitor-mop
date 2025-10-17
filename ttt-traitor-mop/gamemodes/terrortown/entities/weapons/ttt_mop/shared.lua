@@ -1,7 +1,5 @@
-local name = "ttt-traitor-mop"
+local name = "ttt_traitor_mop"
 print("[" + name +  "] mop has been loaded...")
-
-
 
 --[[Author informations]]--
 SWEP.Author = "djpiper28"
