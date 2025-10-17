@@ -1,4 +1,5 @@
 {
-	"title"		:	"TTT Traitor Mop",
-	"type"		:	"weapon"
+  "title": "TTT (Detective & Traitor) Mop",
+  "type": "weapon",
+  "tags": ["fun"]
 }

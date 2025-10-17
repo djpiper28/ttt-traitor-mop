@@ -14,6 +14,6 @@ build:
 publish: build
 	protontricks-launch --appid $(APPID) $(GMPUBLISH) create -addon "$(BUILD_OUTPUT)" -icon "steam-mop.jpeg"
 
-install: build
-	rm -rf "$(GMOD_ADDONS)/$(BUILD_OUTPUT)"
-	cp "$(BUILD_OUTPUT)" "$(GMOD_ADDONS)/"
+install:
+	rm -rf "$(GMOD_ADDONS)/ttt-traitor-mop"
+	cp -r ttt-traitor-mop/ "$(GMOD_ADDONS)/"

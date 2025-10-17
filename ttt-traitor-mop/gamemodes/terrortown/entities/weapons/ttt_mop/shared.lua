@@ -1,5 +1,5 @@
 local name = "ttt_traitor_mop"
-print("[" + name +  "] mop has been loaded...")
+print("[" .. name ..  "] mop has been loaded...")
 
 --[[Author informations]]--
 SWEP.Author = "djpiper28"
@@ -44,7 +44,7 @@ SWEP.WorldModel = "models/tf2/props/mop_and_bucket.mdl"
 -- TTT CONFIGURATION
 SWEP.Kind = WEAPON_ROLE
 SWEP.AutoSpawnable = false
-SWEP.CanBuy = { ROLE_TRAITOR }
+SWEP.CanBuy = { ROLE_TRAITOR, ROLE_DETECTIVE }
 SWEP.InLoadoutFor = { nil }
 SWEP.LimitedStock = true
 SWEP.AllowDrop = false
