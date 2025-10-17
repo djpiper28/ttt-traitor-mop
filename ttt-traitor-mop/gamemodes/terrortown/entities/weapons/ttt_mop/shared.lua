@@ -1,7 +1,7 @@
 local name = "ttt-traitor-mop"
 print("[" + name +  "] mop has been loaded...")
 
-local model = "models/tf2/props/mop_and_bucket"
+
 
 --[[Author informations]]--
 SWEP.Author = "djpiper28"
@@ -28,8 +28,9 @@ SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
 SWEP.ViewModelFlip = true
 SWEP.ViewModelFOV = 54
-SWEP.ViewModel = "models/weapons/v_slam.mdl"
-SWEP.WorldModel = "models/weapons/w_c4.mdl"
+-- NOTE: Using a prop as a viewmodel might require position adjustments.
+SWEP.ViewModel = "models/tf2/props/mop_and_bucket.mdl"
+SWEP.WorldModel = "models/tf2/props/mop_and_bucket.mdl"
 
 -- TTT CONFIGURATION
 SWEP.Kind = WEAPON_ROLE
@@ -66,6 +67,26 @@ end
 
 function SWEP:PrimaryAttack()
   if SERVER then
-    -- TODO: cleanup some gore
+    local ply = self.Owner
+    if not IsValid(ply) then return end
+
+    ply:EmitSound("Weapon_Crowbar.Single")
+
+    local pos = ply:GetPos()
+    local radius = 128
+
+    -- A table of entity classes to remove
+    local to_remove = {
+      "point_devshot",
+      "effect_blood",
+      "prop_ragdoll",
+      "gmod_bullet"
+    }
+
+    for _, ent in ipairs(ents.FindInSphere(pos, radius)) do
+      if table.HasValue(to_remove, ent:GetClass()) then
+        ent:Remove()
+      end
+    end
   end
 end
