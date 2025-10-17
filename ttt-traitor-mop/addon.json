@@ -1,11 +1,4 @@
 {
 	"title"		:	"TTT Traitor Mop",
-	"type"		:	"weapon",
-	"tags"		:	[ "roleplay", "fun" ],
-	"ignore"	:
-	[
-		"*.psd",
-		"*.vcproj",
-		"*.svn*"
-	]
+	"type"		:	"weapon"
 }

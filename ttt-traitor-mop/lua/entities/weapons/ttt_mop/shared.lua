@@ -6,9 +6,15 @@ SWEP.Author = "djpiper28"
 SWEP.Contact = "https://steamcommunity.com/#scrollTop=0"
 
 
+if SERVER then
+  AddCSLuaFile()
+
+  resource.AddFile("materials/VGUI/ttt/icon_mop.vmt")
+end
+
 if CLIENT then
-  SWEP.PrintName = name
-  SWEP.Slot = 5
+  SWEP.PrintName = "Mop"
+  SWEP.Slot = 7
   SWEP.Icon = "VGUI/ttt/icon_mop"
 end
 
@@ -49,18 +55,8 @@ if CLIENT then
   }
 end
 
-function SWEP:Reload()
-  return false
-end
-
 function SWEP:Initialize()
   self:SetHoldType(self.HoldType)
-
-  -- TODO: Precache wahtever crap this mod ends up using
-
-  -- util.PrecacheSound("weapons/bomb_vest/countdown.wav")
-
-  -- util.PrecacheModel("models/humans/charple01.mdl")
 end
 
 function SWEP:PrimaryAttack()

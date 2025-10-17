@@ -6,6 +6,13 @@ This is setup for Linux using proton tricks. If you are on windows remove the wh
 
 ## Build and publish
 
-```
+```sh
+# Build the mod
+make build
+
+# Publish to workshop
 STEAMAPPS="/home/ssd2/SteamLibrary/steamapps/common" make publish
+
+# To test locally run
+make install
 ```
