@@ -9,6 +9,8 @@ if SERVER then
   AddCSLuaFile()
 
   resource.AddFile("materials/VGUI/ttt/icon_mop.vmt")
+  resource.AddFile("models/props_junk/metalbucket01a.mdl")
+  resource.AddFile("models/weapons/v_slam.mdl")
 end
 
 if CLIENT then
@@ -22,7 +24,7 @@ end
 SWEP.Base = "weapon_tttbase"
 SWEP.HoldType = "slam"
 SWEP.Primary.Ammo = "none"
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 1.0
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = false
@@ -37,9 +39,8 @@ SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
 SWEP.ViewModelFlip = true
 SWEP.ViewModelFOV = 54
--- NOTE: Using a prop as a viewmodel might require position adjustments.
-SWEP.ViewModel = "models/tf2/props/mop_and_bucket.mdl"
-SWEP.WorldModel = "models/tf2/props/mop_and_bucket.mdl"
+SWEP.ViewModel = "models/weapons/v_slam.mdl"
+SWEP.WorldModel = "models/props_junk/metalbucket01a.mdl"
 
 -- TTT CONFIGURATION
 SWEP.Kind = WEAPON_ROLE
@@ -72,7 +73,7 @@ function SWEP:PrimaryAttack()
     local ply = self.Owner
     if not IsValid(ply) then return end
 
-    ply:EmitSound("Weapon_Crowbar.Single")
+    self:EmitSound("Weapon_Crowbar.Miss")
 
     local pos = ply:GetPos()
     local radius = 128
@@ -82,7 +83,10 @@ function SWEP:PrimaryAttack()
       "point_devshot",
       "effect_blood",
       "prop_ragdoll",
-      "gmod_bullet"
+      "gmod_bullet",
+      "bloodstream",
+      "blood_impact",
+      "env_blood"
     }
 
     for _, ent in ipairs(ents.FindInSphere(pos, radius)) do
@@ -118,10 +122,10 @@ function SWEP:SecondaryAttack()
          end
 
          -- Play a hit sound
-         self:EmitSound( "Weapon_Crowbar.Hit" )
+         self:EmitSound("Weapon_Crowbar.Hit")
       else
          -- Play a miss sound
-         self:EmitSound( "Weapon_Crowbar.Miss" )
+         self:EmitSound("Weapon_Crowbar.Miss")
       end
    end
 end
