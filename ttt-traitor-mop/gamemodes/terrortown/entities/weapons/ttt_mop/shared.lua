@@ -94,6 +94,8 @@ function SWEP:PrimaryAttack()
         ent:Remove()
       end
     end
+
+    util.RemoveDecalsInRadius(pos, radius)
   end
 end
 
