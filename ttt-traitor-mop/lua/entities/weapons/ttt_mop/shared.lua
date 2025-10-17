@@ -5,7 +5,6 @@ print("[" + name +  "] mop has been loaded...")
 SWEP.Author = "djpiper28"
 SWEP.Contact = "https://steamcommunity.com/#scrollTop=0"
 
-
 if SERVER then
   AddCSLuaFile()
 
@@ -27,6 +26,12 @@ SWEP.Primary.Delay = 1
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = -1
 SWEP.Primary.Automatic = false
+
+SWEP.Secondary.ClipSize = -1
+SWEP.Secondary.DefaultClip = -1
+SWEP.Secondary.Automatic = false
+SWEP.Secondary.Ammo = "none"
+SWEP.Secondary.Delay = 1.0
 SWEP.UseHands = true
 SWEP.DrawAmmo = false
 SWEP.DrawCrosshair = false
@@ -45,6 +50,9 @@ SWEP.LimitedStock = true
 SWEP.AllowDrop = false
 SWEP.IsSilent = false
 SWEP.NoSights = true
+
+SWEP.MeleeDamage = 25
+SWEP.MeleeRange = 75
 
 if CLIENT then
   -- Equipment menu information is only needed on the client
@@ -83,4 +91,37 @@ function SWEP:PrimaryAttack()
       end
     end
   end
+end
+
+function SWEP:SecondaryAttack()
+   self:SetNextSecondaryFire( CurTime() + self.Secondary.Delay )
+   self.Owner:SetAnimation( PLAYER_ATTACK1 )
+
+   if SERVER then
+      local tr = util.TraceLine({
+         start = self.Owner:GetShootPos(),
+         endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * self.MeleeRange,
+         filter = self.Owner
+      })
+
+      if tr.Hit then
+         local dmg = DamageInfo()
+         dmg:SetDamage( self.MeleeDamage )
+         dmg:SetAttacker( self.Owner )
+         dmg:SetInflictor( self )
+         dmg:SetDamageForce( self.Owner:GetAimVector() * 3000 )
+         dmg:SetDamagePosition( tr.HitPos )
+         dmg:SetDamageType( DMG_CLUB )
+
+         if IsValid(tr.Entity) then
+            tr.Entity:TakeDamageInfo( dmg )
+         end
+
+         -- Play a hit sound
+         self:EmitSound( "Weapon_Crowbar.Hit" )
+      else
+         -- Play a miss sound
+         self:EmitSound( "Weapon_Crowbar.Miss" )
+      end
+   end
 end
